@@ -1,3 +1,6 @@
+
+
+
 [![Apache License](https://img.shields.io/badge/license-Apache%202.0-orange.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Support](https://img.shields.io/badge/Support-Community%20(no%20active%20support)-orange.svg)](https://docs.mendix.com/developerportal/app-store/app-store-content-support)
 [![Studio](https://img.shields.io/badge/Studio%20version-8.0%2B-blue.svg)](https://appstore.home.mendix.com/link/modeler/)
@@ -5,6 +8,17 @@
 ![GitHub issues](https://img.shields.io/github/issues/mendixlabs/mendix-file-dropper)
 [![DeepScan grade](https://deepscan.io/api/teams/7221/projects/9412/branches/122227/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=7221&pid=9412&bid=122227)
 [![Available](https://img.shields.io/badge/Test%20Project-available-green.svg)](https://github.com/mendixlabs/widget-test-projects)
+
+
+# Fork to add features:
+
+Change the upload time of this widget.  
+After change, if you add this widget in a form, you can make the widget upload the file when the submit button of the form is click.  
+This can be done by set the following properties:
+
+![Property window of form linkage](./assets/property_window_form_linkage.png)
+
+If you set the `Save file on form submit` as `false`, the behavior will remain same as the origin widget.
 
 # FileDropper
 
