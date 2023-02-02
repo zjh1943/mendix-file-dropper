@@ -23,7 +23,7 @@ export interface FileDropperStoreOptions {
     autoLoad?: boolean;
     autoSave?: boolean;
     saveOnSubmit: boolean;
-    
+
     accept?: string;
     maxNumber?: number;
     maxSize?: number;
@@ -46,7 +46,6 @@ export class FileDropperStore implements FileDropperStoreProps {
     public autoSave: boolean;
     public saveOnSubmit: boolean;
     public saveBase64: boolean;
-
 
     @observable public contextObject: mendix.lib.MxObject | null;
     @observable public validationMessages: ValidationMessage[] = [];

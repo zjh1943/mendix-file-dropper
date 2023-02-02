@@ -52,7 +52,13 @@ export class FileDropper extends Component<FileDropperProps, {}> {
                     disabled={disabled}
                 />
                 <Alerts validationMessages={validationMessages} remove={removeValidation} />
-                <FileList files={files} uiProps={uiProps} deleteFile={deleteAction} contextObject={contextObject} hideSaveButton={saveOnSubmit}/>
+                <FileList
+                    files={files}
+                    uiProps={uiProps}
+                    deleteFile={deleteAction}
+                    contextObject={contextObject}
+                    hideSaveButton={saveOnSubmit}
+                />
             </div>
         );
     }

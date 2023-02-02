@@ -110,7 +110,7 @@ export class FileList extends Component<FileListProps, {}> {
     }
 
     private renderSaveButton(file: IFileDropperFile): ReactNode {
-        if ( this.props.hideSaveButton || file.status !== "loaded") {
+        if (this.props.hideSaveButton || file.status !== "loaded") {
             return null;
         }
         const { saveButtonStyle } = this.props.uiProps;

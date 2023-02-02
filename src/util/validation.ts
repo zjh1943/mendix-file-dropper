@@ -21,7 +21,7 @@ export const validateProps = (
             messages.push(new ValidationMessage(`[${category}] :: ${msg}`));
         }
     };
-    const glyphIconError = (button: string) =>
+    const glyphIconError = (button: string): string =>
         `${button} button style is set to 'Glyphicon', but class is empty. Either set the class or use the built-in icon`;
 
     if (extraProps.noFileSystemDocument) {

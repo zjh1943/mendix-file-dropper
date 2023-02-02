@@ -48,6 +48,7 @@ export class preview extends Component<FileDropperContainerProps> {
         const uiProps = this.getUIProps(this.props);
         const texts = getTexts(this.props);
         const validationMessages = validateProps(this.props, {});
+        // @ts-ignore
         const noop = (): void => {};
         const maxNumber = 1;
         const maxSize = 1 * 1024 * 1024;
@@ -135,9 +136,9 @@ export function getVisibleProperties(props: FileDropperContainerProps, visibilit
     visibilityMap.verificationBeforeAcceptMicroflow = props.verificationEntity !== "";
     visibilityMap.verificationBeforeAcceptNanoflow = props.verificationEntity !== "";
 
-    visibilityMap.nameOfSubmitButton = props.saveOnSubmit != false;
-    visibilityMap.submitMicroflow = props.saveOnSubmit != false;
-    visibilityMap.submitNanoflow = props.saveOnSubmit != false;
+    visibilityMap.nameOfSubmitButton = props.saveOnSubmit !== false;
+    visibilityMap.submitMicroflow = props.saveOnSubmit !== false;
+    visibilityMap.submitNanoflow = props.saveOnSubmit !== false;
 
     return visibilityMap;
 }

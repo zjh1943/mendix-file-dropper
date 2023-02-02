@@ -134,25 +134,27 @@ class FileDropperContainer extends Component<FileDropperContainerProps, {}> {
     }
 
     addListenersOnSubmitButton(): void {
-        if (!this.hasMounted || this.submitButton) return;
+        if (!this.hasMounted || this.submitButton) {
+            return;
+        }
 
         const newSubmitButton = document.getElementsByClassName(`mx-name-${this.props.nameOfSubmitButton}`)[0];
-        if(newSubmitButton){
-            this.debug('Add click event listener to submit button.')
-            newSubmitButton.addEventListener('click', this.onSubmitButtonClick);
+        if (newSubmitButton) {
+            this.debug("Add click event listener to submit button.");
+            newSubmitButton.addEventListener("click", this.onSubmitButtonClick);
             this.submitButton = newSubmitButton;
         }
     }
     removeListenersOnSubmitButton(): void {
         if (this.submitButton) {
-            this.debug('remove click event listener to submit button.')
-            this.submitButton.removeEventListener('click', this.onSubmitButtonClick);
+            this.debug("remove click event listener to submit button.");
+            this.submitButton.removeEventListener("click", this.onSubmitButtonClick);
         }
     }
 
     onSubmitButtonClick = () => {
         const { submitMicroflow, submitNanoflow } = this.props;
-        Promise.all(this.store.files.map((file) => this.saveFile(file as FileDropperFile)))
+        Promise.all(this.store.files.map(file => this.saveFile(file as FileDropperFile)))
             .then(() => {
                 const ret = [];
                 if (submitMicroflow) {
@@ -168,7 +170,7 @@ class FileDropperContainer extends Component<FileDropperContainerProps, {}> {
             .catch(reason => {
                 mx.ui.exception("Error saving files! " + reason);
             });
-    }
+    };
 
     render(): ReactNode {
         const {
