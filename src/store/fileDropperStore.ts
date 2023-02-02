@@ -22,6 +22,8 @@ export interface FileDropperStoreOptions {
     texts: FileDropperTexts;
     autoLoad?: boolean;
     autoSave?: boolean;
+    saveOnSubmit: boolean;
+    
     accept?: string;
     maxNumber?: number;
     maxSize?: number;
@@ -42,7 +44,9 @@ export class FileDropperStore implements FileDropperStoreProps {
 
     public autoLoad: boolean;
     public autoSave: boolean;
+    public saveOnSubmit: boolean;
     public saveBase64: boolean;
+
 
     @observable public contextObject: mendix.lib.MxObject | null;
     @observable public validationMessages: ValidationMessage[] = [];
@@ -53,7 +57,7 @@ export class FileDropperStore implements FileDropperStoreProps {
         if (file.loadFile && (this.autoSave || this.autoLoad)) {
             yield file.loadFile();
         }
-        if (file.saveFile && this.autoSave) {
+        if (file.saveFile && this.autoSave && !this.saveOnSubmit) {
             yield file.saveFile();
         }
         if (file.status === "saved" && this.verifyMethod !== null) {
@@ -107,6 +111,7 @@ export class FileDropperStore implements FileDropperStoreProps {
             subscriptionHandler,
             autoLoad,
             autoSave,
+            saveOnSubmit,
             contextObject,
             maxNumber,
             accept,
@@ -123,6 +128,7 @@ export class FileDropperStore implements FileDropperStoreProps {
         this.subscriptionHandler = subscriptionHandler !== null ? subscriptionHandler : () => {};
         this.autoLoad = typeof autoLoad !== "undefined" ? autoLoad : true;
         this.autoSave = typeof autoSave !== "undefined" ? autoSave : false;
+        this.saveOnSubmit = typeof saveOnSubmit !== "undefined" ? saveOnSubmit : false;
         this.saveBase64 = typeof saveBase64 !== "undefined" ? saveBase64 : true;
         this.contextObject = typeof contextObject !== "undefined" ? contextObject : null;
         this.accept = accept;

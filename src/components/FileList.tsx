@@ -32,6 +32,7 @@ export interface UIProps {
     uiDeleteFileText: string;
 }
 export interface FileListProps {
+    hideSaveButton: boolean;
     uiProps: UIProps;
     files: IFileDropperFile[];
     contextObject?: mendix.lib.MxObject | null;
@@ -109,7 +110,7 @@ export class FileList extends Component<FileListProps, {}> {
     }
 
     private renderSaveButton(file: IFileDropperFile): ReactNode {
-        if (file.status !== "loaded") {
+        if ( this.props.hideSaveButton || file.status !== "loaded") {
             return null;
         }
         const { saveButtonStyle } = this.props.uiProps;

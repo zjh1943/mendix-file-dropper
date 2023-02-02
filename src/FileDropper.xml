@@ -323,5 +323,27 @@ Note 3: To avoid any other problem, make sure this helper object is detached fro
             </property>
         </propertyGroup>
 
+        <!-- Form Linkage -->
+        <propertyGroup caption="Form Linkage">
+            <property key="saveOnSubmit" type="boolean" defaultValue="false">
+                <caption>Save file on form submit</caption>
+                <description>Save file when the submit button of form is clicked. If set it true, the property of `Auto save` will not work. Please don't bind any click action to the submit button in the property dialog of the submit button, but set `Submit nanoflow` or `Submit microflow` below.</description>
+            </property>
+            <property key="nameOfSubmitButton" type="string">
+                <caption>Name of submit button</caption>
+                <description>Name of the submit button. Used to find the submit button and bind listeners to it.</description>
+            </property>
+            <property key="submitNanoflow" type="nanoflow" required="false">
+                <caption>Submit nanoflow</caption>
+                <description>This nanoflow will be triggered when all files is uploaded.</description>
+                <returnType type="Void" />
+            </property>
+            <property key="submitMicroflow" type="microflow" required="false">
+                <caption>Submit microflow</caption>
+                <description>This microflow will be triggered when all files is uploaded.</description>
+                <returnType type="Void" />
+            </property>
+        </propertyGroup>
+
     </properties>
 </widget>

@@ -34,9 +34,11 @@ class FileDropperContainer extends Component<FileDropperContainerProps, {}> {
 
     store: FileDropperStore;
     private widgetId?: string;
+    private hasMounted: boolean = false;
     private subscriptionHandles: number[] = [];
     private beforeCommitAction: Action | null = null;
     private isImageType = false;
+    private submitButton?: Element = undefined;
 
     constructor(props: FileDropperContainerProps) {
         super(props);
@@ -90,6 +92,7 @@ class FileDropperContainer extends Component<FileDropperContainerProps, {}> {
             verifyMethod: this.verifyFile,
             subscriptionHandler: this.handleSubscriptions,
             autoSave: props.dataAutoSave,
+            saveOnSubmit: props.saveOnSubmit,
             maxNumber: props.restrictionMaxFileCount,
             maxSize: maxFileSize,
             validationMessages,
@@ -100,16 +103,8 @@ class FileDropperContainer extends Component<FileDropperContainerProps, {}> {
         });
     }
 
-    componentDidUpdate(): void {
-        if (this.widgetId) {
-            const domNode = findDOMNode(this);
-            // @ts-ignore
-            domNode.setAttribute("widgetId", this.widgetId);
-        }
-    }
-
     componentWillReceiveProps(nextProps: FileDropperContainerProps): void {
-        if (!this.widgetId && this.ref.current) {
+        if (!this.widgetId && this.ref.current && this.hasMounted) {
             try {
                 const domNode = findDOMNode(this);
                 // @ts-ignore
@@ -124,8 +119,55 @@ class FileDropperContainer extends Component<FileDropperContainerProps, {}> {
         this.store.setContext(nextProps.mxObject || null);
     }
 
+    componentDidUpdate(): void {
+        this.addListenersOnSubmitButton();
+    }
+
+    componentDidMount(): void {
+        this.hasMounted = true;
+        this.addListenersOnSubmitButton();
+    }
     componentWillUnmount(): void {
+        this.hasMounted = false;
         this.clearSubscriptions();
+        this.removeListenersOnSubmitButton();
+    }
+
+    addListenersOnSubmitButton(): void {
+        if (!this.hasMounted || this.submitButton) return;
+
+        const newSubmitButton = document.getElementsByClassName(`mx-name-${this.props.nameOfSubmitButton}`)[0];
+        if(newSubmitButton){
+            this.debug('Add click event listener to submit button.')
+            newSubmitButton.addEventListener('click', this.onSubmitButtonClick);
+            this.submitButton = newSubmitButton;
+        }
+    }
+    removeListenersOnSubmitButton(): void {
+        if (this.submitButton) {
+            this.debug('remove click event listener to submit button.')
+            this.submitButton.removeEventListener('click', this.onSubmitButtonClick);
+        }
+    }
+
+    onSubmitButtonClick = () => {
+        const { submitMicroflow, submitNanoflow } = this.props;
+        Promise.all(this.store.files.map((file) => this.saveFile(file as FileDropperFile)))
+            .then(() => {
+                const ret = [];
+                if (submitMicroflow) {
+                    ret.push(this.executeAction({ microflow: submitMicroflow }));
+                }
+                if (submitNanoflow) {
+                    ret.push(this.executeAction({ nanoflow: submitNanoflow }));
+                }
+                if (ret.length > 0) {
+                    return Promise.all(ret);
+                }
+            })
+            .catch(reason => {
+                mx.ui.exception("Error saving files! " + reason);
+            });
     }
 
     render(): ReactNode {

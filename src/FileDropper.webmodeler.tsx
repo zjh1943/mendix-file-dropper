@@ -57,7 +57,7 @@ export class preview extends Component<FileDropperContainerProps> {
             <div className={classes()}>
                 <FileDropZone onDrop={noop} maxNumber={maxNumber} maxSize={maxSize} texts={texts} disabled={disabled} />
                 <Alerts validationMessages={validationMessages} remove={noop} />
-                <FileList files={files} uiProps={uiProps} />
+                <FileList files={files} uiProps={uiProps} hideSaveButton={false} />
             </div>
         );
     }
@@ -134,6 +134,10 @@ export function getVisibleProperties(props: FileDropperContainerProps, visibilit
     visibilityMap.verificationTypeAttr = props.verificationEntity !== "";
     visibilityMap.verificationBeforeAcceptMicroflow = props.verificationEntity !== "";
     visibilityMap.verificationBeforeAcceptNanoflow = props.verificationEntity !== "";
+
+    visibilityMap.nameOfSubmitButton = props.saveOnSubmit != false;
+    visibilityMap.submitMicroflow = props.saveOnSubmit != false;
+    visibilityMap.submitNanoflow = props.saveOnSubmit != false;
 
     return visibilityMap;
 }

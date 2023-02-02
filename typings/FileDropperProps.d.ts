@@ -78,4 +78,9 @@ export interface FileDropperContainerProps extends CommonProps {
     textFilesRejectedByServer: string;
     textFilesRejected: string;
     textFileRejectedSize: string;
+
+    saveOnSubmit: boolean;
+    nameOfSubmitButton: string;
+    submitMicroflow: string;
+    submitNanoflow: Nanoflow;
 }

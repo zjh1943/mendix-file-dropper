@@ -26,6 +26,7 @@ export class FileDropper extends Component<FileDropperProps, {}> {
     render(): ReactNode {
         const { store, uiProps } = this.props;
         const {
+            saveOnSubmit,
             validationMessages,
             removeValidationMessage,
             deleteFile,
@@ -51,7 +52,7 @@ export class FileDropper extends Component<FileDropperProps, {}> {
                     disabled={disabled}
                 />
                 <Alerts validationMessages={validationMessages} remove={removeValidation} />
-                <FileList files={files} uiProps={uiProps} deleteFile={deleteAction} contextObject={contextObject} />
+                <FileList files={files} uiProps={uiProps} deleteFile={deleteAction} contextObject={contextObject} hideSaveButton={saveOnSubmit}/>
             </div>
         );
     }
