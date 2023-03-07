@@ -12,13 +12,15 @@
 
 # Fork to add features:
 
-Change the upload time of this widget.  
-After change, if you add this widget in a form, you can make the widget upload the file when the submit button of the form is click.  
+I fork this repository to change the file uploadindg time, from when selecting a file, to when submitting the form.  
+Before change, when a user select a file, the file will be uploading to the server imediately. This will make the user feel bad when he/she uploads the wrong file or wants to undo the uploading before submit. A normal user usually thinks the file should be upload only after clicking the submit button. But the default behavior of this widget is not that.
+After change, you can make the widget upload the file when clicking the submit button.  
 This can be done by set the following properties:
 
 ![Property window of form linkage](./assets/property_window_form_linkage.png)
 
 If you set the `Save file on form submit` as `false`, the behavior will remain same as the origin widget.
+If you set the `Save file on form submit` as `true`, you will get the behavior described above.
 
 # FileDropper
 
